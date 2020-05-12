@@ -3,7 +3,7 @@
 import sqlite3
 
 
-class NoticiasPipeline(object):
+class G1Pipeline(object):
 
     def __init__(self):
         self.criar_conexao()
@@ -14,7 +14,7 @@ class NoticiasPipeline(object):
         self.cursor = self.con.cursor()
 
     def criar_tabela(self):
-        self.cursor.execute("""DROP TABLE IF EXISTS manchetes_g1.db""")
+        self.cursor.execute("""DROP TABLE IF EXISTS manchetes_g1""")
         self.cursor.execute("""create table manchetes_g1(
             Manchete text,
 	        Link text

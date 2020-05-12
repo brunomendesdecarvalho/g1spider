@@ -2,18 +2,21 @@
 import scrapy
 
 
-class NoticiaspiderSpider(scrapy.Spider):
-    name = 'globospider'
-    start_urls = ['https://g1.globo.com/']
+class EstadaospiderSpider(scrapy.Spider):
+    name = 'estadaospider'
+    start_urls = ['http://https://www.estadao.com.br//']
 
     custom_settings = {
         'DOWNLOAD_DELAY': 1.5 ,
         'DEPTH_LIMIT': 8 ,
+        'ITEM_PIPELINES': {
+            'noticias.pipelines.EstadaoPipeline': 400
+        }
     }
 
     def parse(self, response):
-        manchetes = list(response.xpath(".//div[@class='_et']/a[@href]/text()").extract())
-        links = list(response.xpath(".//div[@class='_et']/a/@href").extract())
+        manchetes = list(response.xpath(".//figcaption[@class='title']/a/text()").extract())
+        links = list(response.xpath(".//figcaption[@class='title']/a/@href").extract())
 
         for manchete, link in zip(manchetes, links):
             yield {
